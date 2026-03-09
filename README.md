@@ -174,8 +174,6 @@ Este projeto está licenciado sob os termos da [Licença MIT](https://www.google
 
 ---
 
-💬 **Contribuições são bem-vindas!** Abra uma *issue* ou envie um *pull request* com melhorias.
-
 ---
 
 Seria interessante eu gerar uma imagem ilustrativa de como ficaria o dashboard do sistema para você colocar no README?
