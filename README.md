@@ -1,6 +1,3 @@
-Com certeza! Adicionei uma nova seção de **Contribuintes** com links diretos para os perfis do GitHub, mantendo o estilo visual do seu documento.
-
-Aqui está o conteúdo atualizado para o seu `README.md`:
 
 ---
 
