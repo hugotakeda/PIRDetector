@@ -173,7 +173,3 @@ node server.js
 Este projeto está licenciado sob os termos da [Licença MIT](https://www.google.com/search?q=LICENSE).
 
 ---
-
----
-
-Seria interessante eu gerar uma imagem ilustrativa de como ficaria o dashboard do sistema para você colocar no README?
