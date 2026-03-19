@@ -1,175 +1,124 @@
+-----
 
----
+# 🛰️ Smart Monitoring System with TTGO T-Camera + Real-Time Notifications
 
-# 🛰️ Sistema de Monitoramento Inteligente com TTGO T-Camera + Notificações em Tempo Real
+An IoT system developed using the **TTGO T-Camera (ESP32)**, a PIR sensor, and an OLED display. It features motion detection, real-time image capture, and automated alerts sent directly to **Discord**. The project also includes a **Node.js web dashboard** for log visualization, live MJPEG streaming, and visual feedback on the device's display.
 
-Sistema IoT desenvolvido com **TTGO T-Camera ESP32**, sensor PIR, OLED display e envio de alertas via **Discord** com captura de imagem em tempo real. Também fornece um **dashboard web** com histórico de eventos e suporte a transmissão ao vivo (MJPEG).
+> 💡 This project is based on and expanded from: [RobotZero.one - TTGO Security Camera with PIR Motion Sensor](https://robotzero.one/ttgo-security-camera-pir/)
 
-> 💡 Projeto baseado e expandido a partir de: [RobotZero.one - TTGO Security Camera with PIR Motion Sensor](https://robotzero.one/ttgo-security-camera-pir/)
+-----
 
----
+## 🧠 Key Features
 
-## 🧠 Principais Funcionalidades
+  * ✅ **Motion Detection:** High-sensitivity detection using the HC-SR501 PIR sensor.
+  * 📸 **Auto Image Capture:** Automatic snapshots via the integrated OV2640 camera.
+  * ⏰ **NTP Synchronization:** Precise date/time logging.
+  * 💬 **Discord Integration:** Sends instant notifications with the captured image to your server.
+  * 🖥️ **Web Dashboard:** Interactive interface to monitor event history.
+  * 🌐 **Real-time Communication:** Powered by WebSockets.
+  * 📺 **Live Stream:** MJPEG transmission for live viewing via web browser.
+  * 🧾 **Local Logging:** Event storage in JSON format.
+  * 🧩 **Visual Feedback:** 0.96” OLED display showing system status.
 
-* ✅ Detecção de movimento com sensor PIR (HC-SR501)
-* 📸 Captura de imagem automática via câmera integrada
-* ⏰ Registro de data/hora via NTP
-* 💬 Envio de notificação com imagem para Discord (`@everyone`)
-* 🖥️ Interface web para visualização de logs
-* 🌐 Comunicação em tempo real via WebSocket
-* 📺 Transmissão MJPEG (live stream via navegador)
-* 🧾 Armazenamento local de eventos (JSON)
-* 🧩 Display OLED 0.96” com feedback visual
+-----
 
----
+## 🔧 Hardware Components
 
-## 👥 Contribuintes
+| Component | Model / Specification |
+| :--- | :--- |
+| **ESP32 Board** | TTGO T-Camera ESP32 WROVER + Fisheye Lens |
+| **Camera** | Integrated OV2640 |
+| **Motion Sensor** | PIR (HC-SR501) |
+| **Display** | SSD1306 128x64 I2C OLED |
+| **Connectivity** | 2.4GHz Wi-Fi |
 
-Este projeto foi desenvolvido e é mantido por:
+-----
 
-* **Éden Samuel** - [GitHub](https://github.com/Eden-code01)
-* **Fernando Lopes** - [GitHub](https://github.com/Fernando-Lopes1)
-
----
-
-## 🔧 Componentes Utilizados
-
-| Componente | Modelo / Especificação |
-| --- | --- |
-| Placa ESP32 | TTGO T-Camera ESP32 WROVER + lente olho de peixe |
-| Câmera | OV2640 integrada |
-| Sensor de movimento | PIR (HC-SR501) |
-| Display OLED | SSD1306 128x64 I2C |
-| Conectividade | Wi-Fi 2.4GHz |
-
----
-
-## 📁 Estrutura de Diretórios
+## 📁 Directory Structure
 
 ```text
 .
 ├── arduino/
-│   ├── main.ino
-│   └── config.h
+│   ├── main.ino      # ESP32 Source code
+│   └── config.h      # Network and API configurations
 ├── server/
-│   ├── server.py
-│   ├── index.html
-│   └── logs.json
-├── LICENSE
+│   ├── server.js     # Node.js backend
+│   ├── index.html    # Frontend Dashboard
+│   └── logs.json     # Event database
+├── LICENSE           # MIT License
 └── README.md
-
 ```
 
----
+-----
 
-## ⚙️ Como Configurar
+## ⚙️ Setup Instructions
 
-### 1. ⚡ Conexões do Hardware (TTGO T-Camera)
+### 1\. Hardware Connections (TTGO T-Camera)
 
-| Pino ESP32 | Componente |
-| --- | --- |
-| GPIO33 | Saída do Sensor PIR |
-| I2C (21/22) | Display OLED |
+| ESP32 Pin | Component Pin |
+| :--- | :--- |
+| **GPIO33** | PIR Sensor Output |
+| **I2C (21/22)** | OLED Display |
 
----
+### 2\. Arduino Configuration
 
-### 2. 📲 Código Arduino
-
-**Arquivo:** `arduino/main.ino`
+Open `arduino/main.ino` and update your credentials:
 
 ```cpp
-const char* ssid = "SUA_REDE_WIFI";
-const char* password = "SUA_SENHA_WIFI";
-const char* discordWebhook = "URL_DO_SEU_WEBHOOK_DISCORD";
-
+const char* ssid = "YOUR_WIFI_SSID";
+const char* password = "YOUR_WIFI_PASSWORD";
+const char* discordWebhook = "YOUR_DISCORD_WEBHOOK_URL";
 ```
 
-> 💡 Compile com:
-> * Placa: **ESP32 Wrover Module**
-> * Frequência: 240 MHz
-> * PSRAM: Habilitada
-> 
-> 
+**Compilation Settings:**
 
----
+  * **Board:** ESP32 Wrover Module
+  * **Flash Frequency:** 80MHz
+  * **Partition Scheme:** Huge App (3MB No OTA/1MB SPIFFS)
+  * **PSRAM:** Enabled
 
-### 3. 💻 Backend com Node.js
+### 3\. Backend Setup (Node.js)
 
-#### Instalação
+1.  Navigate to the server folder:
+    ```bash
+    cd server
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the server:
+    ```bash
+    node server.js
+    ```
 
-```bash
-cd server
-npm install
+-----
 
-```
+## 🌐 Accessing the System
 
-#### Executar o servidor
+  * **Web Dashboard:** `http://localhost:3000`
+  * **ESP32 Live Stream:** `http://<ESP32-IP-ADDRESS>`
+  * **Notifications:** Check your configured Discord channel.
 
-```bash
-node server.js
+-----
 
-```
+## 🧪 Future Improvements (To-Do)
 
-#### Endpoints disponíveis
+  - [ ] Telegram Bot integration.
+  - [ ] Basic facial recognition.
+  - [ ] Cloud storage (Firebase or Google Drive).
+  - [ ] User authentication for the web dashboard.
 
-* `GET /` — Dashboard Web
-* `GET /logs` — Lista de eventos (JSON)
-* `POST /log` — Adicionar evento (usado pelo ESP32)
+-----
 
----
+## 🤝 Contributors
 
-## 🌐 Acesso ao Sistema
+  * **Hugo Takeda** - [GitHub](https://www.google.com/search?q=https://github.com/hugotakeda)
+  * **Éden Samuel** - [GitHub](https://github.com/Eden-code01)
+  * **Fernando Lopes** - [GitHub](https://github.com/Fernando-Lopes1)
 
-* **Dashboard Web:** [`http://localhost:3000`](https://www.google.com/search?q=http://localhost:3000)
-* **Live Stream (ESP32):** [`http://<IP-DO-ESP32>`](https://www.google.com/search?q=http://%3CIP-DO-ESP32%3E)
-* **Notificações:** via Discord Webhook com imagem
+-----
 
----
+## 📄 License
 
-## 📦 Bibliotecas Recomendadas (Arduino IDE)
-
-* `ESPAsyncWebServer`
-* `ESPAsyncTCP`
-* `esp_camera`
-* `WiFi`
-* `HTTPClient`
-* `ArduinoJson`
-* `Adafruit_SSD1306`
-* `Adafruit_GFX`
-* `NTPClient`
-
----
-
-## 📸 Exemplo de Notificação no Discord
-
-```
-📷 Movimento Detectado!
-🕒 Horário: 19/06/2025 às 15:42:10
-🔗 [Imagem Capturada](URL_DA_IMAGEM)
-
-```
-
----
-
-## 🧪 Futuras Melhorias (To-Do)
-
-* [ ] Integração com Telegram
-* [ ] Reconhecimento facial básico
-* [ ] Armazenamento em nuvem (Firebase ou Google Drive)
-* [ ] Autenticação de usuários no dashboard
-
----
-
-## 🤝 Créditos
-
-* [RobotZero.one](https://robotzero.one/ttgo-security-camera-pir/)
-* [LilyGO TTGO](https://www.lilygo.cc/)
-* Comunidade ESP32 no GitHub e fóruns
-
----
-
-## 📄 Licença
-
-Este projeto está licenciado sob os termos da [Licença MIT](https://www.google.com/search?q=LICENSE).
-
----
+This project is licensed under the **MIT License**. See the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
